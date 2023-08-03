@@ -7,12 +7,10 @@ function App() {
 
   return (
     <div className="relative">
-      <div className="absolute z-10 w-full flex justify-center backdrop-blur-sm h-14 bg-white/10">
+      <div className="absolute z-10 w-full flex bg-gray-900/60">
         <Navbar />
       </div>
-      <div className="h-72">
-        <HeroBanner />
-      </div>
+      <HeroBanner />
       <NowPlaying />
       <Popular />
     </div>

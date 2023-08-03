@@ -9,7 +9,8 @@ interface PopularResult {
     title: string,
     adult: boolean,
     backdrop_path: string,
-    release_date: string
+    release_date: string,
+    vote_average: number
 }
 
 interface PopularMovie {
