@@ -6,7 +6,7 @@ const MOVIE_API_KEY = import.meta.env.VITE_MOIVE_API
 interface PopularResult {
     poster_path: string,
     id: number,
-    original_title: string,
+    title: string,
     adult: boolean,
     backdrop_path: string,
     release_date: string
