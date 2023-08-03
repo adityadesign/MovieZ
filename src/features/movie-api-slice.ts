@@ -8,7 +8,8 @@ interface PopularResult {
     id: number,
     original_title: string,
     adult: boolean,
-    backdrop_path: string
+    backdrop_path: string,
+    release_date: string
 }
 
 interface PopularMovie {
@@ -27,7 +28,7 @@ export const apiSlice = createApi({
     endpoints: (builder) => {
         return {
             getPopularMovie: builder.query<PopularMovie, void>({
-                query: () => 'movie/popular'
+                query: () => 'movie/top_rated'
             }),
             getNowPlayingMovie: builder.query<PopularMovie, void>({
                 query: () => 'movie/now_playing'
