@@ -1,5 +1,7 @@
 import dayjs from "dayjs"
 import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 interface Result {
     poster_path: string,
@@ -26,12 +28,17 @@ const OverflowCards: React.FC<OverflowCards> = ({data}) => {
     <div className="flex overflow-x-auto overflow-hidden">
         {data?.results.map((item:Result) => {
           return (
-          <div key={item.id} onClick={()=>navigate(`/movie/${item.id}`)}
-            className="flex text-sm justify-between flex-col relative flex-shrink-0 basis-28 ml-0 m-2 rounded-lg overflow-hidden shadow-lg shadow-gray-950">
-            <img className="" src={`https://image.tmdb.org/t/p/w154${item.poster_path}`}/>
-            <div className="absolute bottom-14 right-0.5 flex justify-center items-center h-8 w-8 bg-black rounded-full border border-[#F7BE38] font-bold">{item.vote_average}</div>
+          <div key={item.id} 
+            onClick={()=>[navigate(`/movie/${item.id}`), window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })]}
+            className="flex text-sm justify-between flex-col relative flex-shrink-0 basis-32 ml-0 m-2 rounded-lg overflow-hidden shadow-lg shadow-gray-950">
+            {item.poster_path ? 
+              <img className="max-h-44 object-cover" src={`https://image.tmdb.org/t/p/w154${item.poster_path}`}/> : 
+              <img className="max-h-44 object-cover" src='/no-poster.png' />}
             <div className="overflow-hidden text-ellipsis whitespace-nowrap mt-3 p-1">{item.title}</div>
-            <div className="p-1">{dayjs(item.release_date).format("MMM D, YYYY")}</div>
+            <div className="flex justify-between">
+              <div className="p-1 flex items-center" style={{fontSize: '0.75rem'}}>{dayjs(item.release_date).format("MMM D, YYYY")}</div>
+              <div className="flex items-center p-1"><FontAwesomeIcon icon={faStar} size="xs" style={{color: "#f7be38", fontSize: '0.75rem'}} />{Math.round(item.vote_average * 10)/10}</div>
+            </div>
           </div>)
         })}
       </div>

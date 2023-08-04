@@ -77,4 +77,9 @@ export const apiSlice = createApi({
     }
 })
 
-export const { useGetPopularMovieQuery, useGetNowPlayingMovieQuery, useFetchMovieDetailsQuery, useFetchMovieCreditsQuery, useFetchSimilarMoviesQuery } = apiSlice
+export const { 
+    useGetPopularMovieQuery, 
+    useGetNowPlayingMovieQuery, 
+    useFetchMovieDetailsQuery, 
+    useFetchMovieCreditsQuery, 
+    useFetchSimilarMoviesQuery, } = apiSlice

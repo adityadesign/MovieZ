@@ -6,13 +6,13 @@ const HeroBanner = () => {
 
     return (
         <div className="h-80 relative">
-            <img className="absolute h-full  w-full object-cover -z-10 opacity-40" src={randomImg} alt="HeroBanner" 
+            <img className="absolute h-full  w-full object-cover -z-10 opacity-20" src={randomImg} alt="HeroBanner" 
                 style={{backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',}}/>
             <div className="flex justify-center items-center h-full flex-col" style={{textShadow: '2px 2px 4px #000000'}}> 
-                <p className="text-2xl font-bold  text-white">Welcome.</p>
-                <p className="text-sm text-center text-slate-200">Millions of movies, TV shows and people to discover</p>
-                <span className="text-sm text-slate-200">Explore Now</span>   
+                <p className="text-4xl font-bold  text-white">Welcome.</p>
+                <p className="text-md text-center text-slate-200">Millions of movies, TV shows and people to discover</p>
+                <span className="text-md text-slate-200">Explore Now</span>   
             </div>
             <div className="absolute bottom-12 flex w-full justify-center">
                 <input className="p-2 w-2/3 rounded-l-lg bg-slate-50 text-black text-sm" type="text" placeholder="Search for movies or tv shows..."/>

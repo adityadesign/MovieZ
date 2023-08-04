@@ -1,6 +1,9 @@
 import {useParams} from 'react-router-dom'
 import { useFetchMovieDetailsQuery, useFetchMovieCreditsQuery, useFetchSimilarMoviesQuery } from '../features/movie-api-slice'
 import OverflowCards from '../components/utils/OverflowCards'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClock, faStar } from '@fortawesome/free-solid-svg-icons'
+
  
 
 const MovieDetails = () => {
@@ -39,12 +42,12 @@ const MovieDetails = () => {
                 <div className='flex w-full justify-around my-5'>
                 <div className='flex flex-col justify-center items-center'>
                         <div className='text-gray-400'>Ratings</div>
-                        <div className='text-sm'>{data?.vote_average}</div>
+                        <div className='text-sm'><FontAwesomeIcon icon={faStar} style={{color: "#f7be38",}} /> {data?.vote_average}</div>
                     </div>
                     <div className='border-l-2 border-gray-500'></div>
                     <div className='flex flex-col justify-center items-center'>
                         <div className='text-gray-400'>Runtime</div>
-                        <div className='text-sm'>{data?.runtime} min</div>
+                        <div className='text-sm'><FontAwesomeIcon icon={faClock} style={{color: "#f7be38",}} /> {data?.runtime} min</div>
                     </div>
                 </div>
                 <div className='text-lg font-semibold'>Overview</div>
@@ -78,7 +81,9 @@ const MovieDetails = () => {
                                 return (
                                     <div key={item.id}>
                                         <div className=' flex-shrink-0 h-24 w-24'>
-                                            <img className='rounded-full h-full w-full object-cover bg-top' src={`https://image.tmdb.org/t/p/w92${item.profile_path}`} alt="" />
+                                            {item.profile_path ? 
+                                                <img className='rounded-full h-full w-full object-cover bg-top' src={`https://image.tmdb.org/t/p/w92${item.profile_path}`} alt="" /> :
+                                                <img className='rounded-full h-full w-full object-cover bg-top' src='/avatar.png'/>}
                                         </div>
                                         <div className='text-sm text-center'>{item.name}</div>
                                         <div className='text-sm text-center text-gray-400'>{item.character}</div>
@@ -88,7 +93,10 @@ const MovieDetails = () => {
                         })}
                     </div>
                 </div>
-                {/* {similar && <OverflowCards data={similar}/>} */}
+                <div className='my-5'>
+                    <div className='text-lg font-semibold'>Similar Movies</div>
+                    {similar.data && <OverflowCards data={similar.data}/>}
+                </div>
             </div>
         </div>
     )
