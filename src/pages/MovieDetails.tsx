@@ -1,14 +1,14 @@
 import {useParams} from 'react-router-dom'
-import { useFetchMovieDetailsQuery, useFetchMovieCreditsQuery } from '../features/movie-api-slice'
+import { useFetchMovieDetailsQuery, useFetchMovieCreditsQuery, useFetchSimilarMoviesQuery } from '../features/movie-api-slice'
+import OverflowCards from '../components/utils/OverflowCards'
+ 
 
 const MovieDetails = () => {
     const {id} = useParams()
     const {data} = useFetchMovieDetailsQuery(id)
     const credits = useFetchMovieCreditsQuery(id)
-    const randomImg:string = data ? `https://image.tmdb.org/t/p/w780${data.poster_path}` : 'https://i.gifer.com/OVTb.gif'
-    const writers = credits.data?.crew.filter(item => item.job === 'Writer')
-    console.log(writers);
-    
+    const similar = useFetchSimilarMoviesQuery(id)
+    const randomImg:string = data ? `https://image.tmdb.org/t/p/w780${data.poster_path}` : 'https://i.gifer.com/OVTb.gif'    
 
     return (
         <div className=''>
@@ -37,7 +37,10 @@ const MovieDetails = () => {
                 })}
                 </div>
                 <div className='flex w-full justify-around my-5'>
-                    <div className='flex justify-center items-center w-14 h-14 text-md rounded-full border-4 bg-gray-950 border-[#F7BE38]'>{data?.vote_average}</div>
+                <div className='flex flex-col justify-center items-center'>
+                        <div className='text-gray-400'>Ratings</div>
+                        <div className='text-sm'>{data?.vote_average}</div>
+                    </div>
                     <div className='border-l-2 border-gray-500'></div>
                     <div className='flex flex-col justify-center items-center'>
                         <div className='text-gray-400'>Runtime</div>
@@ -45,7 +48,8 @@ const MovieDetails = () => {
                     </div>
                 </div>
                 <div className='text-lg font-semibold'>Overview</div>
-                <div className='text-sm text-gray-400'>{data?.overview}</div>
+                <div className='text-sm text-gray-400 mb-4'>{data?.overview}</div>
+                <hr className='border-gray-700 mx-3'/>
                 <div className='flex my-4 justify-between'>
                     <div className='flex flex-col text-sm'>
                         <div>Status: </div>
@@ -60,14 +64,31 @@ const MovieDetails = () => {
                         <div className='text-gray-400'>{data?.original_language}</div>
                     </div>
                 </div>
-                <div className='text-sm'>
+                <hr className='border-gray-700 mx-3'/>
+                <div className='text-sm my-4'>
                     Director: 
                     <span className='text-gray-400'> {credits.data?.crew.filter(item => item.job === 'Director')[0].name}</span>
                 </div>
-                {/* <div className='text-sm'>
-                    Writers: 
-                    <span className='text-gray-400'> {credits.data?.crew.filter(item => item.job === 'Writer')[0].name}</span>
-                </div> */}
+                <hr className='border-gray-700 mx-3'/>
+                <div className='my-5'>
+                    <h2 className='my-2 text-lg font-semibold'>Top Cast</h2>
+                    <div className='flex overflow-x-auto overflow-hidden gap-2'>
+                        {credits.data?.cast.map((item,index) => {
+                            if(index<15){
+                                return (
+                                    <div key={item.id}>
+                                        <div className=' flex-shrink-0 h-24 w-24'>
+                                            <img className='rounded-full h-full w-full object-cover bg-top' src={`https://image.tmdb.org/t/p/w92${item.profile_path}`} alt="" />
+                                        </div>
+                                        <div className='text-sm text-center'>{item.name}</div>
+                                        <div className='text-sm text-center text-gray-400'>{item.character}</div>
+                                    </div>
+                                )
+                            }
+                        })}
+                    </div>
+                </div>
+                {/* {similar && <OverflowCards data={similar}/>} */}
             </div>
         </div>
     )

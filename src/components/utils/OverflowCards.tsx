@@ -23,7 +23,7 @@ const OverflowCards: React.FC<OverflowCards> = ({data}) => {
     const navigate = useNavigate()
 
   return (
-    <div className="flex overflow-x-auto">
+    <div className="flex overflow-x-auto overflow-hidden">
         {data?.results.map((item:Result) => {
           return (
           <div key={item.id} onClick={()=>navigate(`/movie/${item.id}`)}

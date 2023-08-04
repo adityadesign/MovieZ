@@ -69,9 +69,12 @@ export const apiSlice = createApi({
             }),
             fetchMovieCredits: builder.query<Credits, string|void>({
                 query: (id) => `movie/${id}/credits`
-            })
+            }),
+            fetchSimilarMovies: builder.query<Movies, string|void>({
+                query: (id) => `movie/${id}/similar`
+            }),
         }
     }
 })
 
-export const { useGetPopularMovieQuery, useGetNowPlayingMovieQuery, useFetchMovieDetailsQuery, useFetchMovieCreditsQuery } = apiSlice
+export const { useGetPopularMovieQuery, useGetNowPlayingMovieQuery, useFetchMovieDetailsQuery, useFetchMovieCreditsQuery, useFetchSimilarMoviesQuery } = apiSlice
