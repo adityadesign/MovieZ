@@ -3,18 +3,33 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 const BASE_URL = "https://api.themoviedb.org/3/"
 const MOVIE_API_KEY = import.meta.env.VITE_MOIVE_API
 
-interface PopularResult {
+interface Results {
     poster_path: string,
     id: number,
     title: string,
-    adult: boolean,
     backdrop_path: string,
     release_date: string,
     vote_average: number
 }
 
-interface PopularMovie {
-    results: PopularResult[]
+interface Movies {
+    results: Results[]
+}
+
+interface Moviedetails {
+    genres: [{
+        id: number,
+        name: string
+    }],
+    id: number,
+    original_language: string,
+    overview: string,
+    poster_path: string,
+    tagline: string,
+    vote_average: number,
+    runtime: number,
+    release_date: string,
+    title: string
 }
 
 export const apiSlice = createApi({
@@ -28,14 +43,17 @@ export const apiSlice = createApi({
     }),
     endpoints: (builder) => {
         return {
-            getPopularMovie: builder.query<PopularMovie, void>({
+            getPopularMovie: builder.query<Movies, void>({
                 query: () => 'movie/top_rated'
             }),
-            getNowPlayingMovie: builder.query<PopularMovie, void>({
+            getNowPlayingMovie: builder.query<Movies, void>({
                 query: () => 'movie/now_playing'
+            }),
+            fetchMovieDetails: builder.query<Moviedetails, string|void>({
+                query: (id) => `movie/${id}`
             })
         }
     }
 })
 
-export const { useGetPopularMovieQuery, useGetNowPlayingMovieQuery } = apiSlice
+export const { useGetPopularMovieQuery, useGetNowPlayingMovieQuery, useFetchMovieDetailsQuery } = apiSlice
