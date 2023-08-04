@@ -1,10 +1,14 @@
 import {useParams} from 'react-router-dom'
-import { useFetchMovieDetailsQuery } from '../features/movie-api-slice'
+import { useFetchMovieDetailsQuery, useFetchMovieCreditsQuery } from '../features/movie-api-slice'
 
 const MovieDetails = () => {
     const {id} = useParams()
     const {data} = useFetchMovieDetailsQuery(id)
+    const credits = useFetchMovieCreditsQuery(id)
     const randomImg:string = data ? `https://image.tmdb.org/t/p/w780${data.poster_path}` : 'https://i.gifer.com/OVTb.gif'
+    const writers = credits.data?.crew.filter(item => item.job === 'Writer')
+    console.log(writers);
+    
 
     return (
         <div className=''>
@@ -40,10 +44,30 @@ const MovieDetails = () => {
                         <div className='text-sm'>{data?.runtime} min</div>
                     </div>
                 </div>
-                <div>
-                    <div className='text-lg font-semibold'>Overview</div>
-                    <div className='text-sm text-gray-400'>{data?.overview}</div>
+                <div className='text-lg font-semibold'>Overview</div>
+                <div className='text-sm text-gray-400'>{data?.overview}</div>
+                <div className='flex my-4 justify-between'>
+                    <div className='flex flex-col text-sm'>
+                        <div>Status: </div>
+                        <div className='text-gray-400'>{data?.status}</div>
+                    </div>
+                    <div className='flex flex-col text-sm'>
+                        <div>Release Date: </div>
+                        <div className='text-gray-400'>{data?.release_date}</div>
+                    </div>
+                    <div className='flex flex-col text-sm'>
+                        <div>Language: </div>
+                        <div className='text-gray-400'>{data?.original_language}</div>
+                    </div>
                 </div>
+                <div className='text-sm'>
+                    Director: 
+                    <span className='text-gray-400'> {credits.data?.crew.filter(item => item.job === 'Director')[0].name}</span>
+                </div>
+                {/* <div className='text-sm'>
+                    Writers: 
+                    <span className='text-gray-400'> {credits.data?.crew.filter(item => item.job === 'Writer')[0].name}</span>
+                </div> */}
             </div>
         </div>
     )

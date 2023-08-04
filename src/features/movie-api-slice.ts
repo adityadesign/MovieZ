@@ -29,7 +29,22 @@ interface Moviedetails {
     vote_average: number,
     runtime: number,
     release_date: string,
-    title: string
+    title: string,
+    status: string,
+}
+
+interface Credits{
+    cast: [{
+        name: string,
+        profile_path: string,
+        character: string,
+        id: number
+    }],
+    crew: [{
+        name: string,
+        job: string,
+        id: number
+    }]
 }
 
 export const apiSlice = createApi({
@@ -51,9 +66,12 @@ export const apiSlice = createApi({
             }),
             fetchMovieDetails: builder.query<Moviedetails, string|void>({
                 query: (id) => `movie/${id}`
+            }),
+            fetchMovieCredits: builder.query<Credits, string|void>({
+                query: (id) => `movie/${id}/credits`
             })
         }
     }
 })
 
-export const { useGetPopularMovieQuery, useGetNowPlayingMovieQuery, useFetchMovieDetailsQuery } = apiSlice
+export const { useGetPopularMovieQuery, useGetNowPlayingMovieQuery, useFetchMovieDetailsQuery, useFetchMovieCreditsQuery } = apiSlice
