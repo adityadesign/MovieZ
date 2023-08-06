@@ -3,18 +3,29 @@ import { useFetchMovieDetailsQuery, useFetchMovieCreditsQuery, useFetchSimilarMo
 import OverflowCards from '../utils/OverflowCards'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faStar } from '@fortawesome/free-solid-svg-icons'
-
+import {TailSpin} from 'react-loader-spinner'
  
 const MovieDetails = () => {
     const {id} = useParams()
-    const {data} = useFetchMovieDetailsQuery(id)
+    const {data, isLoading} = useFetchMovieDetailsQuery(id)
     const credits = useFetchMovieCreditsQuery(id)
     const similar = useFetchSimilarMoviesQuery(id)
     const randomImg:string = data ? `https://image.tmdb.org/t/p/w780${data.poster_path}` : 'https://i.gifer.com/OVTb.gif'    
 
     return (
         <>
-            <div className='relative'>
+            {isLoading && 
+                <div className="h-screen flex justify-center items-center">
+                <TailSpin
+                    height="80"
+                    width="80"
+                    color="#F7BE38"
+                    ariaLabel="tail-spin-loading"
+                    radius="1"
+                    visible={true}
+                />
+                </div>}
+            {!isLoading && <><div className='relative'>
                 {data?.poster_path ? 
                     <img className='opacity-20 sepia w-full object-cover' style={{height: '500px'}} src={randomImg} alt="Movie Poster" /> :
                     <img className='opacity-20 sepia w-full object-cover' style={{height: '500px'}} src='/no-poster.png' alt="Movie Poster"/>
@@ -102,7 +113,7 @@ const MovieDetails = () => {
                     <div className='text-lg font-semibold'>Similar Movies</div>
                     {similar.data && <OverflowCards data={similar.data}/>}
                 </div>
-            </div>
+            </div></>}
         </>
     )
 }

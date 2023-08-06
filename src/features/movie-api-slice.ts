@@ -7,6 +7,7 @@ export interface Results {
     poster_path: string,
     id: number,
     title: string,
+    name: string,
     backdrop_path: string,
     release_date: string,
     vote_average: number
