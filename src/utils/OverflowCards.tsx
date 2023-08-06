@@ -2,35 +2,21 @@ import dayjs from "dayjs"
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-
-interface Result {
-    poster_path: string,
-    id: number,
-    title: string,
-    backdrop_path: string,
-    release_date: string,
-    vote_average: number
-}
-
-interface Movies {
-    results: Result[]
-}
+import type {Results, Movies} from '../features/movie-api-slice'
 
 interface OverflowCards {
     data: Movies
 }
 
-
 const OverflowCards: React.FC<OverflowCards> = ({data}) => {
     const navigate = useNavigate()
-
-  return (
-    <div className="flex overflow-x-auto overflow-hidden">
-        {data?.results.map((item:Result) => {
+    return (
+      <div className="flex overflow-x-auto overflow-hidden">
+        {data?.results.map((item:Results) => {
           return (
           <div key={item.id} 
             onClick={()=>[navigate(`/movie/${item.id}`), window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })]}
-            className="flex text-sm justify-between flex-col relative flex-shrink-0 basis-32 ml-0 m-2 rounded-lg overflow-hidden shadow-lg shadow-gray-950">
+            className="flex text-sm justify-between flex-col relative flex-shrink-0 basis-32 ml-0 m-2 rounded-lg overflow-auto shadow-lg shadow-gray-950">
             {item.poster_path ? 
               <img className="max-h-44 object-cover" src={`https://image.tmdb.org/t/p/w154${item.poster_path}`}/> : 
               <img className="max-h-44 object-cover" src='/no-poster.png' />}
@@ -42,7 +28,7 @@ const OverflowCards: React.FC<OverflowCards> = ({data}) => {
           </div>)
         })}
       </div>
-  )
+    )
 }
 
 export default OverflowCards

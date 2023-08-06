@@ -1,5 +1,5 @@
 import { useGetNowPlayingMovieQuery } from "../features/movie-api-slice"
-import OverflowCards from "./utils/OverflowCards"
+import OverflowCards from "../utils/OverflowCards"
 
 const NowPlaying: React.FC = () => {
     const {data} = useGetNowPlayingMovieQuery()

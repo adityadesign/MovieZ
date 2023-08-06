@@ -1,9 +1,15 @@
 import { useGetNowPlayingMovieQuery } from "../features/movie-api-slice"
+import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const HeroBanner = () => {
     const {data} = useGetNowPlayingMovieQuery()
     const randomImg:string = data?.results ? `https://image.tmdb.org/t/p/w780${data?.results[Math.floor(Math.random()*data.results.length)].backdrop_path}` : 'https://i.gifer.com/OVTb.gif'
-
+    const search= useRef<string>()
+    const navigate = useNavigate()
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        search.current = e.target.value
+    }
     return (
         <div className="h-80 relative">
             <img className="absolute h-full  w-full object-cover -z-10 opacity-20" src={randomImg} alt="HeroBanner" 
@@ -15,8 +21,15 @@ const HeroBanner = () => {
                 <span className="text-md text-slate-200">Explore Now</span>   
             </div>
             <div className="absolute bottom-12 flex w-full justify-center">
-                <input className="p-2 w-2/3 rounded-l-lg bg-slate-50 text-black text-sm" type="text" placeholder="Search for movies or tv shows..."/>
-                <button className="text-gray-900 rounded-r-lg px-2 bg-[#F7BE38] hover:bg-[#F7BE38]/90 focus:ring-4 focus:outline-none focus:ring-[#F7BE38]/50">Search</button>
+                <input className="p-2 w-2/3 rounded-l-lg bg-slate-50 text-black text-sm" 
+                    type="text" 
+                    placeholder="Search for movies or tv shows..."
+                    onChange={handleSearch}
+                    />
+                <button className="text-gray-900 rounded-r-lg px-2 bg-[#F7BE38] hover:bg-[#F7BE38]/90 focus:ring-4 focus:outline-none focus:ring-[#F7BE38]/50"
+                    onClick={() => navigate(`/search/multi/${search.current}`)}>
+                    Search
+                </button>
             </div>
             <div style={{
                     position: 'absolute',

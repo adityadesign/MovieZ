@@ -1,5 +1,5 @@
 import {useGetPopularMovieQuery} from '../features/movie-api-slice'
-import OverflowCards from "./utils/OverflowCards"
+import OverflowCards from "../utils/OverflowCards"
 
 const Popular = () => {
     const { data } = useGetPopularMovieQuery()

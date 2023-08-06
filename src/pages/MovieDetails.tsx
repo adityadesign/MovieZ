@@ -1,11 +1,10 @@
 import {useParams} from 'react-router-dom'
 import { useFetchMovieDetailsQuery, useFetchMovieCreditsQuery, useFetchSimilarMoviesQuery } from '../features/movie-api-slice'
-import OverflowCards from '../components/utils/OverflowCards'
+import OverflowCards from '../utils/OverflowCards'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faStar } from '@fortawesome/free-solid-svg-icons'
 
  
-
 const MovieDetails = () => {
     const {id} = useParams()
     const {data} = useFetchMovieDetailsQuery(id)
@@ -14,9 +13,12 @@ const MovieDetails = () => {
     const randomImg:string = data ? `https://image.tmdb.org/t/p/w780${data.poster_path}` : 'https://i.gifer.com/OVTb.gif'    
 
     return (
-        <div className=''>
+        <>
             <div className='relative'>
-                <img className='opacity-20 sepia w-full object-cover' style={{height: '500px'}} src={randomImg} alt="Movie Poster" />
+                {data?.poster_path ? 
+                    <img className='opacity-20 sepia w-full object-cover' style={{height: '500px'}} src={randomImg} alt="Movie Poster" /> :
+                    <img className='opacity-20 sepia w-full object-cover' style={{height: '500px'}} src='/no-poster.png' alt="Movie Poster"/>
+                }
                 <div style={{
                     position: 'absolute',
                     width: '100%',
@@ -26,7 +28,10 @@ const MovieDetails = () => {
                     zIndex: '0',
                     background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(36, 36, 36, 10))'
                 }}></div>
-                <img className='absolute z-1 top-16 rounded-xl w-auto mx-auto right-0 left-0 shadow-lg shadow-gray-900' style={{maxHeight: '415px'}} src={randomImg} alt="Movie Poster" />
+                {data?.poster_path ? 
+                    <img className='absolute z-1 top-16 rounded-xl w-auto mx-auto right-0 left-0 shadow-lg shadow-gray-900' style={{maxHeight: '415px'}} src={randomImg} alt="Movie Poster" /> :
+                    <img className='absolute z-1 top-16 rounded-xl w-auto mx-auto right-0 left-0 shadow-lg shadow-gray-900' style={{maxHeight: '415px'}} src='/no-poster.png' alt="Movie Poster" />
+                }
             </div>
             <div className='mx-4'>
                 <p className='text-2xl font-bold'>{data?.title}</p>
@@ -42,7 +47,7 @@ const MovieDetails = () => {
                 <div className='flex w-full justify-around my-5'>
                 <div className='flex flex-col justify-center items-center'>
                         <div className='text-gray-400'>Ratings</div>
-                        <div className='text-sm'><FontAwesomeIcon icon={faStar} style={{color: "#f7be38",}} /> {data?.vote_average}</div>
+                        <div className='text-sm'><FontAwesomeIcon icon={faStar} style={{color: "#f7be38",}} /> {data && Math.round(data.vote_average * 10)/10}</div>
                     </div>
                     <div className='border-l-2 border-gray-500'></div>
                     <div className='flex flex-col justify-center items-center'>
@@ -52,7 +57,7 @@ const MovieDetails = () => {
                 </div>
                 <div className='text-lg font-semibold'>Overview</div>
                 <div className='text-sm text-gray-400 mb-4'>{data?.overview}</div>
-                <hr className='border-gray-700 mx-3'/>
+                <hr className='border-gray-700'/>
                 <div className='flex my-4 justify-between'>
                     <div className='flex flex-col text-sm'>
                         <div>Status: </div>
@@ -67,12 +72,12 @@ const MovieDetails = () => {
                         <div className='text-gray-400'>{data?.original_language}</div>
                     </div>
                 </div>
-                <hr className='border-gray-700 mx-3'/>
+                <hr className='border-gray-700'/>
                 <div className='text-sm my-4'>
                     Director: 
                     <span className='text-gray-400'> {credits.data?.crew.filter(item => item.job === 'Director')[0].name}</span>
                 </div>
-                <hr className='border-gray-700 mx-3'/>
+                <hr className='border-gray-700'/>
                 <div className='my-5'>
                     <h2 className='my-2 text-lg font-semibold'>Top Cast</h2>
                     <div className='flex overflow-x-auto overflow-hidden gap-2'>
@@ -98,7 +103,7 @@ const MovieDetails = () => {
                     {similar.data && <OverflowCards data={similar.data}/>}
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

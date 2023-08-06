@@ -3,6 +3,7 @@ import Home from "./pages/Home"
 import Navbar from './components/Navbar'
 import MovieDetails from './pages/MovieDetails'
 import Footer from './components/Footer'
+import SearchResult from './pages/SearchResult'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/movie/:id" element={<MovieDetails/>}/>
+        <Route path="/search/multi/:query" element={<SearchResult/>}/>
       </Routes>
       <Footer />
     </div>

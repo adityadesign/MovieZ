@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 const BASE_URL = "https://api.themoviedb.org/3/"
 const MOVIE_API_KEY = import.meta.env.VITE_MOIVE_API
 
-interface Results {
+export interface Results {
     poster_path: string,
     id: number,
     title: string,
@@ -12,8 +12,9 @@ interface Results {
     vote_average: number
 }
 
-interface Movies {
-    results: Results[]
+export interface Movies {
+    results: Results[],
+    total_results: number
 }
 
 interface Moviedetails {
@@ -73,6 +74,9 @@ export const apiSlice = createApi({
             fetchSimilarMovies: builder.query<Movies, string|void>({
                 query: (id) => `movie/${id}/similar`
             }),
+            fetchSearchedMovies: builder.query<Movies, {query:string, pageNumber:number}>({
+                query: ({query, pageNumber}) => `search/multi?query=${query}&page=${pageNumber}`
+            }),
         }
     }
 })
@@ -82,4 +86,5 @@ export const {
     useGetNowPlayingMovieQuery, 
     useFetchMovieDetailsQuery, 
     useFetchMovieCreditsQuery, 
-    useFetchSimilarMoviesQuery, } = apiSlice
+    useFetchSimilarMoviesQuery,
+    useFetchSearchedMoviesQuery } = apiSlice
