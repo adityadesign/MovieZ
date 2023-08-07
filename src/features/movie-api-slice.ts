@@ -15,7 +15,9 @@ export interface Results {
 
 export interface Movies {
     results: Results[],
-    total_results: number
+    total_results: number,
+    total_pages: number,
+    page: number
 }
 
 interface Moviedetails {
@@ -75,8 +77,8 @@ export const apiSlice = createApi({
             fetchSimilarMovies: builder.query<Movies, string|void>({
                 query: (id) => `movie/${id}/similar`
             }),
-            fetchSearchedMovies: builder.query<Movies, {query:string, pageNumber:number}>({
-                query: ({query, pageNumber}) => `search/multi?query=${query}&page=${pageNumber}`
+            fetchSearchedMovies: builder.query<Movies, {query:string}>({
+                query: ({query}) => `search/multi?query=${query}`,
             }),
         }
     }

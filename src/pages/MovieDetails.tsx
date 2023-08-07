@@ -93,12 +93,12 @@ const MovieDetails = () => {
                     <h2 className='my-2 text-lg font-semibold'>Top Cast</h2>
                     <div className='flex overflow-x-auto overflow-hidden gap-2'>
                         {credits.data?.cast.map((item,index) => {
-                            if(index<15){
+                            if(index<20){
                                 return (
                                     <div key={item.id}>
                                         <div className=' flex-shrink-0 h-24 w-24'>
                                             {item.profile_path ? 
-                                                <img className='rounded-full h-full w-full object-cover bg-top' src={`https://image.tmdb.org/t/p/w92${item.profile_path}`} alt="" /> :
+                                                <img className='rounded-full h-full w-full object-cover bg-top' src={`https://image.tmdb.org/t/p/w154${item.profile_path}`} alt="" /> :
                                                 <img className='rounded-full h-full w-full object-cover bg-top' src='/avatar.png'/>}
                                         </div>
                                         <div className='text-sm text-center'>{item.name}</div>
