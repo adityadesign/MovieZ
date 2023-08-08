@@ -1,18 +1,22 @@
 import { useState } from "react"
-import { useGetNowPlayingMovieQuery, useFetchTVDetailsQuery } from "../features/movie-api-slice"
+import { useGetNowPlayingMovieQuery, useFetchTVDetailsQuery, Movies } from "../features/movie-api-slice"
 import OverflowCards from "../utils/OverflowCards"
 import SwitchTab from "../utils/SwitchTab"
 
 
 const NowPlaying: React.FC = () => {
-    let {data} = useGetNowPlayingMovieQuery()
+    const movieData = useGetNowPlayingMovieQuery()
+    const tvData = useFetchTVDetailsQuery()
+    const [getData, setGetData] = useState<Movies>()
     const tab:string[] = ["Movies", "TVshow"]
     const [isActive, setIsActive] = useState<boolean>(false)
     const handleClick = (e:any) => {
         if(e.target.value === 'TVshow'){
             setIsActive(true)
+            setGetData(tvData.data)
         } else if(e.target.value === 'Movie'){
             setIsActive(false)
+            setGetData(movieData.data)
         }        
     }
 
@@ -22,7 +26,7 @@ const NowPlaying: React.FC = () => {
           <div>Now Playing</div>
           <SwitchTab tab={tab} isActive={isActive} handleClick={handleClick}/>
         </div>
-        {data && <OverflowCards data={data}/>}
+        {!getData ? movieData.data && <OverflowCards data={movieData.data}/> : <OverflowCards data={getData}/>}
       </div>
     )
 }
