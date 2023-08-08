@@ -11,7 +11,7 @@ interface OverflowCards {
 const OverflowCards: React.FC<OverflowCards> = ({data}) => {
     const navigate = useNavigate()
     return (
-      <div className="flex overflow-x-auto overflow-hidden">
+      <div className="flex overflow-x-auto overflow-hidden no-scrollbar">
         {data?.results.map((item:Results) => {
           return (
           <div key={item.id} 

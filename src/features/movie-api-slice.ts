@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import MovieDetails from '../pages/MovieDetails'
 
 const BASE_URL = "https://api.themoviedb.org/3/"
 const MOVIE_API_KEY = import.meta.env.VITE_MOIVE_API
@@ -71,6 +72,9 @@ export const apiSlice = createApi({
             fetchMovieDetails: builder.query<Moviedetails, string|void>({
                 query: (id) => `movie/${id}`
             }),
+            fetchTVDetails: builder.query<Moviedetails, string|void>({
+                query: () => `tv/airing_today`
+            }),
             fetchMovieCredits: builder.query<Credits, string|void>({
                 query: (id) => `movie/${id}/credits`
             }),
@@ -87,7 +91,8 @@ export const apiSlice = createApi({
 export const { 
     useGetPopularMovieQuery, 
     useGetNowPlayingMovieQuery, 
-    useFetchMovieDetailsQuery, 
+    useFetchMovieDetailsQuery,
+    useFetchTVDetailsQuery, 
     useFetchMovieCreditsQuery, 
     useFetchSimilarMoviesQuery,
     useFetchSearchedMoviesQuery } = apiSlice

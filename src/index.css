@@ -21,3 +21,7 @@
 *{
   box-sizing: border-box;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

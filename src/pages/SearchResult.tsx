@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom"
 import {useFetchSearchedMoviesQuery} from "../features/movie-api-slice"
-import React, { useState } from "react"
+import React from "react"
 import {TailSpin} from 'react-loader-spinner'
 import type {Results} from '../features/movie-api-slice'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
