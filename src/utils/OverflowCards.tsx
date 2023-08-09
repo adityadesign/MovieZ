@@ -25,12 +25,13 @@ const OverflowCards: React.FC<OverflowCards> = ({data, mediaType}) => {
             onClick={()=>handleClick(item.id)}
             className="flex text-sm justify-between flex-col relative flex-shrink-0 basis-32 ml-0 m-2 rounded-lg overflow-auto shadow-lg shadow-gray-950">
             {item.poster_path ?
-              <LazyLoadImage 
+              <LazyLoadImage style={{objectFit:"cover", height:'100%'}}
                 alt={item.name}
+                height={'12rem'}
                 effect= "blur"
                 src={`https://image.tmdb.org/t/p/w154${item.poster_path}`}
               />  : 
-              <img className="max-h-44 object-cover" src='/no-poster.png' />}
+              <img className="max-h-48 object-cover" src='/no-poster.png' />}
             <div className="overflow-hidden text-ellipsis whitespace-nowrap mt-3 p-1">{item.title}{item.name}</div>
             <div className="flex justify-between">
               <div className="p-1 flex items-center" style={{fontSize: '0.75rem'}}>{dayjs(item.release_date).format("MMM D, YYYY")}</div>
