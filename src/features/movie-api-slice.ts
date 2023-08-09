@@ -35,6 +35,13 @@ interface Moviedetails {
     release_date: string,
     title: string,
     status: string,
+    name: string,
+    created_by: [{
+        id: number,
+        name: string,
+    }],
+    episode_run_time: number[],
+    first_air_date: string
 }
 
 interface Credits{
@@ -68,17 +75,17 @@ export const apiSlice = createApi({
             getNowPlayingMovie: builder.query<Movies, void>({
                 query: () => 'movie/now_playing'
             }),
-            fetchDetails: builder.query<Moviedetails, {id:string|undefined, mediaType:string|undefined}>({
+            fetchDetails: builder.query<Moviedetails, {id:string|void, mediaType:string|void}>({
                 query: ({id, mediaType}) => `${mediaType}/${id}`
             }),
             fetchTVAiringToday: builder.query<Movies, void>({
                 query: () => `tv/airing_today`
             }),
-            fetchMovieCredits: builder.query<Credits, string|void>({
-                query: (id) => `movie/${id}/credits`
+            fetchCredits: builder.query<Credits, {id:string|void, mediaType:string|void}>({
+                query: ({id, mediaType}) => `${mediaType}/${id}/credits`
             }),
-            fetchSimilarMovies: builder.query<Movies, string|void>({
-                query: (id) => `movie/${id}/similar`
+            fetchSimilar: builder.query<Movies, {id:string|void, mediaType:string|void}>({
+                query: ({id, mediaType}) => `${mediaType}/${id}/similar`
             }),
             fetchSearchedMovies: builder.query<Movies, {query:string}>({
                 query: ({query}) => `search/multi?query=${query}`,
@@ -92,6 +99,6 @@ export const {
     useGetNowPlayingMovieQuery, 
     useFetchTVAiringTodayQuery,
     useFetchDetailsQuery,
-    useFetchMovieCreditsQuery, 
-    useFetchSimilarMoviesQuery,
+    useFetchCreditsQuery, 
+    useFetchSimilarQuery,
     useFetchSearchedMoviesQuery } = apiSlice

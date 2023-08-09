@@ -9,8 +9,8 @@ function App() {
 
   return (
     <div className="relative">
-      <div className="absolute z-10 w-full flex bg-gray-900/60">
-            <Navbar />
+      <div className="absolute z-10 w-full flex bg-gray-200/30">
+        <Navbar />
       </div>
       <Routes>
         <Route path="/" element={<Home/>}/>

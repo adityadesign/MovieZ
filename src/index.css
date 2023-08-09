@@ -25,3 +25,7 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.switchTabShadow{
+  box-shadow: 1px 0px 10px #F7BE38
+}

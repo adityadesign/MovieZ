@@ -24,7 +24,7 @@ const Popular = () => {
     }
 
     return (
-        <div className="pl-2 mt-6">
+        <div className="pl-2 my-8">
             <div className="flex justify-between items-center py-1">
             <div className="text-lg" style={{textShadow: '1px 0px 10px #d6cece'}}>Top Rated</div>
             <SwitchTab tab={tab} isActive={isActive} handleClick={handleClick}/>

@@ -1,18 +1,31 @@
 import { useGetNowPlayingMovieQuery } from "../features/movie-api-slice"
 import { useRef } from 'react'
+import { TailSpin } from "react-loader-spinner"
 import { useNavigate } from 'react-router-dom'
 
 const HeroBanner = () => {
-    const {data} = useGetNowPlayingMovieQuery()
-    const randomImg:string = data?.results ? `https://image.tmdb.org/t/p/w780${data?.results[Math.floor(Math.random()*data.results.length)].backdrop_path}` : 'https://i.gifer.com/OVTb.gif'
+    const {data, isLoading} = useGetNowPlayingMovieQuery()
+    const randomImg:string|undefined = data && `https://image.tmdb.org/t/p/w780${data?.results[Math.floor(Math.random()*data.results.length)].backdrop_path}`
     const search= useRef<string>()
     const navigate = useNavigate()
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         search.current = e.target.value
     }
     return (
+        <>
+        {isLoading && 
+                <div className="h-screen flex justify-center items-center">
+                <TailSpin
+                    height="80"
+                    width="80"
+                    color="#F7BE38"
+                    ariaLabel="tail-spin-loading"
+                    radius="1"
+                    visible={true}
+                />
+                </div>}
         <div className="h-80 relative">
-            <img className="absolute h-full  w-full object-cover -z-10 opacity-20" src={randomImg} alt="HeroBanner" 
+            <img className="absolute h-full  w-full object-cover -z-10 opacity-20" src={randomImg} alt="HeroBanner" loading="lazy"
                 style={{backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',}}/>
             <div className="flex justify-center items-center h-full flex-col" style={{textShadow: '2px 2px 4px #000000'}}> 
@@ -41,6 +54,7 @@ const HeroBanner = () => {
                 }}>
             </div>
         </div>
+        </>
     )
 }
 
