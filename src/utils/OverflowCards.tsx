@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import type {Results, Movies} from '../features/movie-api-slice'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 interface OverflowCards {
     data: Movies,
@@ -22,8 +24,12 @@ const OverflowCards: React.FC<OverflowCards> = ({data, mediaType}) => {
           <div key={item.id}
             onClick={()=>handleClick(item.id)}
             className="flex text-sm justify-between flex-col relative flex-shrink-0 basis-32 ml-0 m-2 rounded-lg overflow-auto shadow-lg shadow-gray-950">
-            {item.poster_path ? 
-              <img className="max-h-44 object-cover" loading="lazy" src={`https://image.tmdb.org/t/p/w154${item.poster_path}`}/> : 
+            {item.poster_path ?
+              <LazyLoadImage 
+                alt={item.name}
+                effect= "blur"
+                src={`https://image.tmdb.org/t/p/w154${item.poster_path}`}
+              />  : 
               <img className="max-h-44 object-cover" src='/no-poster.png' />}
             <div className="overflow-hidden text-ellipsis whitespace-nowrap mt-3 p-1">{item.title}{item.name}</div>
             <div className="flex justify-between">

@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className="relative">
-      <div className="absolute z-10 w-full flex bg-gray-200/30">
+      <div className="absolute z-10 w-full flex bg-black/70">
         <Navbar />
       </div>
       <Routes>

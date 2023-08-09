@@ -26,8 +26,8 @@ const MovieDetails = () => {
                 </div>}
             {!isLoading && <><div className='relative'>
                 {data?.poster_path ? 
-                    <img className='opacity-20 sepia w-full object-cover' style={{height: '500px'}} src={`https://image.tmdb.org/t/p/w780${data.poster_path}`} alt="Movie Poster" /> :
-                    <img className='opacity-20 sepia w-full object-cover' style={{height: '500px'}} src='/no-poster.png' alt="Movie Poster"/>
+                    <img className='opacity-20 w-full object-cover' style={{height: '500px'}} src={`https://image.tmdb.org/t/p/w780${data.poster_path}`} alt="Movie Poster" /> :
+                    <img className='opacity-20 w-full object-cover' style={{height: '500px'}} src='/no-poster.png' alt="Movie Poster"/>
                 }
                 <div style={{
                     position: 'absolute',

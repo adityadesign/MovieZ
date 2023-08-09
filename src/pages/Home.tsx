@@ -1,13 +1,15 @@
 import HeroBanner from "../components/HeroBanner"
 import NowPlaying from "../components/NowPlaying"
-import Popular from "../components/TopRated"
+import TopRated from "../components/TopRated"
+import Upcoming from "../components/Upcoming"
 
 const Home = () => {
   return (
     <>
         <HeroBanner />
         <NowPlaying />
-        <Popular /> 
+        <TopRated /> 
+        <Upcoming />
     </>
   )
 }

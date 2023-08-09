@@ -14,7 +14,7 @@ const HeroBanner = () => {
     return (
         <>
         {isLoading && 
-                <div className="h-screen flex justify-center items-center">
+            <div className="h-screen flex justify-center items-center">
                 <TailSpin
                     height="80"
                     width="80"
@@ -23,17 +23,17 @@ const HeroBanner = () => {
                     radius="1"
                     visible={true}
                 />
-                </div>}
-        <div className="h-80 relative">
+            </div>}
+        <div className="h-96 relative">
             <img className="absolute h-full  w-full object-cover -z-10 opacity-20" src={randomImg} alt="HeroBanner" loading="lazy"
                 style={{backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',}}/>
-            <div className="flex justify-center items-center h-full flex-col" style={{textShadow: '2px 2px 4px #000000'}}> 
+            <div className="flex justify-center items-center h-full flex-col" style={{textShadow: '2px 10px 10px black'}}> 
                 <p className="text-4xl font-bold  text-white">Welcome.</p>
                 <p className="text-md text-center text-slate-200">Millions of movies, TV shows and people to discover</p>
                 <span className="text-md text-slate-200">Explore Now</span>   
             </div>
-            <div className="absolute bottom-12 flex w-full justify-center">
+            <div className="absolute bottom-24 flex w-full justify-center">
                 <input className="p-2 w-2/3 rounded-l-lg bg-slate-50 text-black text-sm" 
                     type="text" 
                     placeholder="Search for movies or tv shows..."
@@ -47,7 +47,7 @@ const HeroBanner = () => {
             <div style={{
                     position: 'absolute',
                     width: '100%',
-                    height: '50px',
+                    height: '40px',
                     bottom: '0',
                     left: '0',
                     background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(36, 36, 36, 10))'
