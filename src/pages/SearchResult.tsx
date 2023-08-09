@@ -43,16 +43,17 @@ const SearchResult:React.FC = () => {
                     return (
                     <div key={item.id} 
                       onClick={() => handleClick(item.id, item.media_type)}
-                      className="flex text-sm justify-between flex-col rounded-lg overflow-auto shadow-lg shadow-gray-950">
+                      className="flex text-sm h-72 justify-between flex-col rounded-lg overflow-auto shadow-lg shadow-gray-950">
                       {item.poster_path ? 
-                        // <img className="max-h-52 object-cover" src={`https://image.tmdb.org/t/p/w342${item.poster_path}`}/> 
-                        <LazyLoadImage 
+                        //<img className="max-h-52 object-cover" src={`https://image.tmdb.org/t/p/w342${item.poster_path}`}/> 
+                        <LazyLoadImage style={{objectFit:"cover", height:'100%', width:'100%'}}
                           alt={item.name}
                           effect= "blur"
+                          height={'14rem'}
                           src={`https://image.tmdb.org/t/p/w342${item.poster_path}`}
                         />  : 
-                        <img className="max-h-52 object-cover" src='/no-poster.png' />}
-                      <div className="overflow-hidden text-ellipsis whitespace-nowrap mt-3 p-1">{item.title ? item.title : item.name}</div>
+                        <img className="h-56 object-cover" src='/no-poster.png' />}
+                      <div className="overflow-hidden text-ellipsis whitespace-nowrap pt-2 p-1">{item.title ? item.title : item.name}</div>
                       <div className="flex justify-between">
                         <div className="p-1 flex items-center" style={{fontSize: '0.75rem'}}>{dayjs(item.release_date).format("MMM D, YYYY")}</div>
                         <div className="flex items-center p-1"><FontAwesomeIcon icon={faStar} size="xs" style={{color: "#f7be38", fontSize: '0.75rem'}} />{Math.round(item.vote_average * 10)/10}</div>
