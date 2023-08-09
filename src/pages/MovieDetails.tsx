@@ -1,13 +1,13 @@
 import {useParams} from 'react-router-dom'
-import { useFetchMovieDetailsQuery, useFetchMovieCreditsQuery, useFetchSimilarMoviesQuery } from '../features/movie-api-slice'
+import { useFetchDetailsQuery, useFetchMovieCreditsQuery, useFetchSimilarMoviesQuery } from '../features/movie-api-slice'
 import OverflowCards from '../utils/OverflowCards'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faStar } from '@fortawesome/free-solid-svg-icons'
 import {TailSpin} from 'react-loader-spinner'
  
 const MovieDetails = () => {
-    const {id} = useParams()
-    const {data, isLoading} = useFetchMovieDetailsQuery(id)
+    const {id, mediaType} = useParams()
+    const {data, isLoading} = useFetchDetailsQuery({id, mediaType})
     const credits = useFetchMovieCreditsQuery(id)
     const similar = useFetchSimilarMoviesQuery(id)
     const randomImg:string = data ? `https://image.tmdb.org/t/p/w780${data.poster_path}` : 'https://i.gifer.com/OVTb.gif'    
@@ -111,7 +111,7 @@ const MovieDetails = () => {
                 </div>
                 <div className='my-5'>
                     <div className='text-lg font-semibold'>Similar Movies</div>
-                    {similar.data && <OverflowCards data={similar.data}/>}
+                    {similar.data && <OverflowCards data={similar.data} mediaType=''/>}
                 </div>
             </div></>}
         </>

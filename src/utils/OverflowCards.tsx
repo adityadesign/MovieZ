@@ -5,18 +5,22 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 import type {Results, Movies} from '../features/movie-api-slice'
 
 interface OverflowCards {
-    data: Movies
+    data: Movies,
+    mediaType: string
 }
 
-const OverflowCards: React.FC<OverflowCards> = ({data}) => {
+const OverflowCards: React.FC<OverflowCards> = ({data, mediaType}) => {
     const navigate = useNavigate()
-    
+    const handleClick = (id:number) => {
+      navigate(`/${mediaType}/${id}`)
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+    }
     return (
       <div className="flex overflow-x-auto overflow-hidden no-scrollbar">
         {data?.results.map((item:Results) => {
           return (
-          <div key={item.id} 
-            onClick={()=>[navigate(`/movie/${item.id}`), window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })]}
+          <div key={item.id}
+            onClick={()=>handleClick(item.id)}
             className="flex text-sm justify-between flex-col relative flex-shrink-0 basis-32 ml-0 m-2 rounded-lg overflow-auto shadow-lg shadow-gray-950">
             {item.poster_path ? 
               <img className="max-h-44 object-cover" src={`https://image.tmdb.org/t/p/w154${item.poster_path}`}/> : 

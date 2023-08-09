@@ -62,16 +62,16 @@ export const apiSlice = createApi({
     }),
     endpoints: (builder) => {
         return {
-            getPopularMovie: builder.query<Movies, void>({
-                query: () => 'movie/top_rated'
+            getTopRated: builder.query<Movies, string>({
+                query: (mediaType) => `${mediaType}/top_rated`
             }),
             getNowPlayingMovie: builder.query<Movies, void>({
                 query: () => 'movie/now_playing'
             }),
-            fetchMovieDetails: builder.query<Moviedetails, string|void>({
-                query: (id) => `movie/${id}`
+            fetchDetails: builder.query<Moviedetails, {id:string|undefined, mediaType:string|undefined}>({
+                query: ({id, mediaType}) => `${mediaType}/${id}`
             }),
-            fetchTVDetails: builder.query<Movies, string|void>({
+            fetchTVAiringToday: builder.query<Movies, void>({
                 query: () => `tv/airing_today`
             }),
             fetchMovieCredits: builder.query<Credits, string|void>({
@@ -88,10 +88,10 @@ export const apiSlice = createApi({
 })
 
 export const { 
-    useGetPopularMovieQuery, 
+    useGetTopRatedQuery,
     useGetNowPlayingMovieQuery, 
-    useFetchMovieDetailsQuery,
-    useFetchTVDetailsQuery, 
+    useFetchTVAiringTodayQuery,
+    useFetchDetailsQuery,
     useFetchMovieCreditsQuery, 
     useFetchSimilarMoviesQuery,
     useFetchSearchedMoviesQuery } = apiSlice
