@@ -15,7 +15,7 @@ const OverflowCards: React.FC<OverflowCards> = ({data, mediaType}) => {
     const navigate = useNavigate()
     const handleClick = (id:number) => {
       navigate(`/${mediaType}/${id}`)
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+      window.scrollTo({ top: 0, left: 0})
     }
     return (
       <div className="flex overflow-x-auto overflow-hidden no-scrollbar">

@@ -4,16 +4,21 @@ import OverflowCards from '../utils/OverflowCards'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faStar } from '@fortawesome/free-solid-svg-icons'
 import {TailSpin} from 'react-loader-spinner'
+import { LazyLoadImage } from 'react-lazy-load-image-component' 
+import { useState } from 'react'
  
 const MovieDetails = () => {
     const {id, mediaType} = useParams()
     const {data, isLoading } = useFetchDetailsQuery({id, mediaType})
     const credits = useFetchCreditsQuery({id, mediaType})
     const similar = useFetchSimilarQuery({id, mediaType})  
-    
+    const [imageLoad, setImageLoad] = useState<boolean>(false)
+    const handleLoad =()=>{
+        setImageLoad(true)
+    }
     return (
         <>
-            {isLoading && 
+            {!imageLoad && 
                 <div className="h-screen flex justify-center items-center">
                 <TailSpin
                     height="80"
@@ -26,7 +31,15 @@ const MovieDetails = () => {
                 </div>}
             {!isLoading && <><div className='relative'>
                 {data?.poster_path ? 
-                    <img className='opacity-20 w-full object-cover' style={{height: '500px'}} src={`https://image.tmdb.org/t/p/w780${data.poster_path}`} alt="Movie Poster" /> :
+                    <div className='opacity-20 w-full object-cover'>
+                        <LazyLoadImage style={{objectFit:"cover", height:'100%', width:'100%'}}
+                            alt={data.name}
+                            height={'500px'}
+                            width={'100%'}
+                            effect= "blur"
+                            src={`https://image.tmdb.org/t/p/w154${data.poster_path}`}
+                        />
+                    </div> :
                     <img className='opacity-20 w-full object-cover' style={{height: '500px'}} src='/no-poster.png' alt="Movie Poster"/>
                 }
                 <div style={{
@@ -39,7 +52,11 @@ const MovieDetails = () => {
                     background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(36, 36, 36, 10))'
                 }}></div>
                 {data?.poster_path ? 
-                    <img className='absolute z-1 top-16 rounded-xl w-auto mx-auto right-0 left-0 shadow-lg shadow-gray-900' style={{maxHeight: '415px'}} src={`https://image.tmdb.org/t/p/w780${data.poster_path}`} alt="Movie Poster" /> :
+                    <img className='absolute z-1 top-16 rounded-xl w-auto mx-auto right-0 left-0 shadow-lg shadow-gray-900' 
+                        style={{maxHeight: '415px'}} 
+                        src={`https://image.tmdb.org/t/p/w780${data.poster_path}`}
+                        onLoad={handleLoad} 
+                        alt="Movie Poster" /> :
                     <img className='absolute z-1 top-16 rounded-xl w-auto mx-auto right-0 left-0 shadow-lg shadow-gray-900' style={{maxHeight: '415px'}} src='/no-poster.png' alt="Movie Poster" />
                 }
             </div>
@@ -105,7 +122,12 @@ const MovieDetails = () => {
                                     <div key={item.id}>
                                         <div className=' flex-shrink-0 h-24 w-24'>
                                             {item.profile_path ? 
-                                                <img className='rounded-full h-full w-full object-cover bg-top' src={`https://image.tmdb.org/t/p/w154${item.profile_path}`} alt="" /> :
+                                                <LazyLoadImage style={{objectFit:"cover", height:'100%', borderRadius: '100%', width: '100%'}}
+                                                    alt={item.name}
+                                                    height={'6rem'}
+                                                    width={'6rem'}
+                                                    effect= "blur"
+                                                    src={`https://image.tmdb.org/t/p/w154${item.profile_path}`}/>:
                                                 <img className='rounded-full h-full w-full object-cover bg-top' src='/avatar.png'/>}
                                         </div>
                                         <div className='text-sm text-center'>{item.name}</div>
@@ -118,7 +140,7 @@ const MovieDetails = () => {
                 </div>
                 <div className='my-5'>
                     <div className="text-lg my-2">Similar {mediaType==='movie' ? 'Movies' : 'Shows'}</div>
-                    {similar.data && <OverflowCards data={similar.data} mediaType={mediaType}/>}
+                    <div onClick={()=>setImageLoad(false)}>{similar.data && <OverflowCards data={similar.data} mediaType={mediaType} />}</div>
                 </div>
             </div></>}
         </>
