@@ -65,7 +65,7 @@ const MovieDetails = () => {
                         <div className='text-sm'><FontAwesomeIcon icon={faClock} style={{color: "#f7be38",}} /> {mediaType==='movie' ? data?.runtime :(data?.episode_run_time[0]!==undefined ? <span>{data?.episode_run_time[0]} min</span> : 'N.A')}</div>
                     </div>
                 </div>
-                <div className="text-lg my-2" style={{textShadow: '1px 0px 10px #d6cece'}}>Overview</div>
+                <div className="text-lg my-2">Overview</div>
                 <div className='text-sm text-gray-400 mb-4'>{data?.overview}</div>
                 <hr className='border-gray-700'/>
                 <div className='flex my-4 justify-between'>
@@ -97,7 +97,7 @@ const MovieDetails = () => {
 
                 <hr className='border-gray-700'/>
                 <div className='my-5'>
-                    <h2 className="text-lg my-2" style={{textShadow: '1px 0px 10px #d6cece'}}>Top Cast</h2>
+                    <h2 className="text-lg my-2">Top Cast</h2>
                     <div className='flex overflow-x-auto overflow-hidden gap-2 no-scrollbar'>
                         {credits.data?.cast.map((item,index) => {
                             if(index<20){
@@ -117,7 +117,7 @@ const MovieDetails = () => {
                     </div>
                 </div>
                 <div className='my-5'>
-                    <div className="text-lg my-2" style={{textShadow: '1px 0px 10px #d6cece'}}>Similar {mediaType==='movie' ? 'Movies' : 'Shows'}</div>
+                    <div className="text-lg my-2">Similar {mediaType==='movie' ? 'Movies' : 'Shows'}</div>
                     {similar.data && <OverflowCards data={similar.data} mediaType={mediaType}/>}
                 </div>
             </div></>}
