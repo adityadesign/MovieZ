@@ -26,11 +26,11 @@ const MovieDetails = () => {
             {isOpen && 
                 <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center z-20'>
                     <div className='flex flex-col w-11/12 max-w-[400px]'>
-                        <button className='text-white text-xl place-self-end cursor-pointer border-2 px-1.5' onClick={()=>setOpen(false)}>X</button>
+                        <button className='text-white text-xl place-self-end cursor-pointer border-2 rounded-md mb-1 px-1.5' onClick={()=>setOpen(false)}>X</button>
                         <div>
                             <iframe
                                 width='100%' 
-                                height='200px'
+                                height='250px'
                                 src={`https://www.youtube.com/embed/${key}`}
                                 title='Youtube video player'
                                 allowFullScreen
