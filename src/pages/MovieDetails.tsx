@@ -1,8 +1,9 @@
 import {useParams} from 'react-router-dom'
-import { useFetchDetailsQuery, useFetchCreditsQuery, useFetchSimilarQuery } from '../features/movie-api-slice'
+import { useFetchDetailsQuery, useFetchCreditsQuery, useFetchSimilarQuery, useFetchVideosQuery } from '../features/movie-api-slice'
 import OverflowCards from '../utils/OverflowCards'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faYoutube } from '@fortawesome/free-brands-svg-icons'
 import {TailSpin} from 'react-loader-spinner'
 import { LazyLoadImage } from 'react-lazy-load-image-component' 
 import { useState } from 'react'
@@ -12,12 +13,31 @@ const MovieDetails = () => {
     const {data, isLoading } = useFetchDetailsQuery({id, mediaType})
     const credits = useFetchCreditsQuery({id, mediaType})
     const similar = useFetchSimilarQuery({id, mediaType})  
+    const videos = useFetchVideosQuery({id, mediaType})
     const [imageLoad, setImageLoad] = useState<boolean>(false)
     const handleLoad =()=>{
         setImageLoad(true)
     }
+    const [isOpen, setOpen] = useState<boolean>(false)
+    const [key, setKey] =useState<string>('')
+
     return (
         <>
+            {isOpen && 
+                <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center z-20'>
+                    <div className='flex flex-col w-11/12 max-w-[400px]'>
+                        <button className='text-white text-xl place-self-end cursor-pointer border-2 px-1.5' onClick={()=>setOpen(false)}>X</button>
+                        <div>
+                            <iframe
+                                width='100%' 
+                                height='200px'
+                                src={`https://www.youtube.com/embed/${key}`}
+                                title='Youtube video player'
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    </div>
+                </div> }
             {!imageLoad && 
                 <div className="h-screen flex justify-center items-center">
                 <TailSpin
@@ -108,7 +128,7 @@ const MovieDetails = () => {
                     </div>:
                     <div className='text-sm my-4'>
                         Creator: 
-                        <span className='text-gray-400'> {(data?.created_by && data?.created_by.length>0) ? data?.created_by.map(item=> <span key={item.id}>{item.name}</span>) : 'N.A'}</span>
+                        <span className='text-gray-400'> {(data?.created_by && data?.created_by.length>0) ? data?.created_by.map((item,index)=> <span key={index}>{index + 1 !== data.created_by.length ? `${item.name}, ` : item.name}</span>) : 'N.A'}</span>
                     </div>
                 }
 
@@ -138,6 +158,32 @@ const MovieDetails = () => {
                         })}
                     </div>
                 </div>
+
+                <div>
+                    <h2 className="text-lg my-3">Official Videos</h2>
+                    <div className='flex overflow-x-auto overflow-hidden h-32 gap-2 no-scrollbar'>
+                    {videos.data?.results.slice(0).reverse().map(item => {
+                        return (
+                            <div className='flex flex-col w-48' key={item.id} onClick={()=> [setOpen(true), setKey(item.key)]}>
+                                <div className='relative h-5/6 w-48 cursor-pointer opacity-80 hover:opacity-40'>
+                                    <div className='flex-shrink-0 h-full'>
+                                        <LazyLoadImage style={{objectFit:"cover", height:'100%',borderRadius: '15px', width:'100%'}}
+                                            alt={item.name}
+                                            height={'100%'}
+                                            width={'100%'}
+                                            effect= "blur"
+                                            src={`https://img.youtube.com/vi/${item.key}/mqdefault.jpg`}/>
+                                    </div>
+                                    <FontAwesomeIcon className='absolute m-auto left-0 right-0 top-0 bottom-0 h-14 hover:brightness-200 z-10' icon={faYoutube} size='2xl' style={{color: "#e21818"}} />
+                                    <span className='absolute h-5 w-5 bg-white m-auto left-0 right-0 top-0 bottom-0 -z-1'></span>
+                                </div>
+                                <span className='h-1/6 w-full text-sm overflow-hidden text-ellipsis whitespace-nowrap text-gray-300'>{item.name}</span>
+                            </div>
+                        )
+                    })}
+                    </div>
+                </div>
+
                 <div className='my-5'>
                     <div className="text-lg my-2">Similar {mediaType==='movie' ? 'Movies' : 'Shows'}</div>
                     <div onClick={()=>setImageLoad(false)}>{similar.data && <OverflowCards data={similar.data} mediaType={mediaType} />}</div>

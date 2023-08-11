@@ -59,6 +59,16 @@ interface Credits{
     }]
 }
 
+interface Videos{
+    id: number,
+    results: [{
+        name: string,
+        key: string,
+        id: string,
+        site: string
+    }]
+}
+
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
@@ -97,6 +107,9 @@ export const apiSlice = createApi({
             fetchSearchedMovies: builder.query<Movies, {query:string}>({
                 query: ({query}) => `search/multi?query=${query}`,
             }),
+            fetchVideos: builder.query<Videos, {id:string|void, mediaType:string|void}>({
+                query: ({id, mediaType}) => `${mediaType}/${id}/videos`,
+            }),
         }
     }
 })
@@ -110,4 +123,5 @@ export const {
     useFetchDetailsQuery,
     useFetchCreditsQuery, 
     useFetchSimilarQuery,
-    useFetchSearchedMoviesQuery } = apiSlice
+    useFetchSearchedMoviesQuery,
+    useFetchVideosQuery } = apiSlice
