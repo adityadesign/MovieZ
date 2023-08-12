@@ -14,13 +14,13 @@ const SwitchTab: React.FC<SwitchTab> = ({tab, isActive, handleClick}) => {
                 style={{fontSize:'0.77rem'}}
                 onClick={(e)=>handleClick(e)}
                 value='Movie'
-                className={`py-1 px-2 ${!isActive ? 'bg-[#F7BE38] text-black switchTabShadow' : ''} hover:bg-[#F7BE38] rounded-3xl m-0.5 transition duration-300 ease-in-out`}
+                className={`py-1 px-2 md:text-xl md:px-4 ${!isActive ? 'bg-[#F7BE38] text-black switchTabShadow' : ''} hover:bg-[#F7BE38] rounded-3xl m-0.5 transition duration-300 ease-in-out`}
             >{tab[0]}</button>
             <button
                 style={{fontSize:'0.77rem'}}
                 onClick={(e)=>handleClick(e)}
                 value='TVshow'
-                className={`py-1 px-2 ${isActive ? 'bg-[#F7BE38] text-black switchTabShadow' : ''} hover:bg-[#F7BE38] rounded-3xl m-0.5 transition duration-300 ease-in-out`}
+                className={`py-1 px-2 md:text-xl md:px-4 ${isActive ? 'bg-[#F7BE38] text-black switchTabShadow' : ''} hover:bg-[#F7BE38] rounded-3xl m-0.5 transition duration-300 ease-in-out`}
             >{tab[1]}</button>
         </div>
     )

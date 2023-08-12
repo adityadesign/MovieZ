@@ -30,7 +30,7 @@ const Upcoming: React.FC = () => {
     return (
       <div className="pl-2 my-8">
         <div className="flex justify-between items-center py-1">
-          <div className="text-lg">Upcoming</div>
+          <div className="text-lg md:text-xl lg:text-2xl">Upcoming</div>
           <SwitchTab tab={tab} isActive={isActive} handleClick={handleClick}/>
         </div>
         {!getData ? movieData.data && <OverflowCards data={movieData.data} mediaType={mediaType}/> : <OverflowCards data={getData} mediaType={mediaType}/>}

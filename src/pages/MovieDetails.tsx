@@ -57,7 +57,7 @@ const MovieDetails = () => {
                             height={'500px'}
                             width={'100%'}
                             effect= "blur"
-                            src={`https://image.tmdb.org/t/p/w154${data.poster_path}`}
+                            src={`https://image.tmdb.org/t/p/original${data.poster_path}`}
                         />
                     </div> :
                     <img className='opacity-20 w-full object-cover' style={{height: '500px'}} src='/no-poster.png' alt="Movie Poster"/>

@@ -11,7 +11,7 @@ const Navbar = () => {
       dispatch(setNowPlayingMediaType('movie'))
     }
     return (
-      <div className="flex h-14 items-center text-[#F7BE38]">
+      <div className="flex h-14 items-center text-[#F7BE38] lg:w-[1010px] lg:m-auto">
           <div className="font-black text-xl ml-5" onClick={handleClick}>MovieZ</div>
       </div>
     )

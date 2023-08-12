@@ -26,7 +26,7 @@ const Popular = () => {
     return (
         <div className="pl-2 my-8">
             <div className="flex justify-between items-center py-1">
-            <div className="text-lg">Top Rated</div>
+            <div className="text-lg md:text-xl lg:text-2xl">Top Rated</div>
             <SwitchTab tab={tab} isActive={isActive} handleClick={handleClick}/>
             </div>
             {mediaData.data && <OverflowCards data={mediaData.data} mediaType={mediaType}/>}

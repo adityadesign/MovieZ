@@ -12,11 +12,13 @@ function App() {
       <div className="absolute z-10 w-full flex bg-black/70">
         <Navbar />
       </div>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/:mediaType/:id" element={<MovieDetails/>}/>
-        <Route path="/search/multi/:query" element={<SearchResult/>}/>
-      </Routes>
+      <div className='lg:w-[1010px] md:flex md:flex-col m-auto'>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/:mediaType/:id" element={<MovieDetails/>}/>
+          <Route path="/search/multi/:query" element={<SearchResult/>}/>
+        </Routes>
+      </div>
       <Footer />
     </div>
   )

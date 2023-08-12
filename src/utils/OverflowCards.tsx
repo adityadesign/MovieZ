@@ -18,16 +18,15 @@ const OverflowCards: React.FC<OverflowCards> = ({data, mediaType}) => {
       window.scrollTo({ top: 0, left: 0})
     }
     return (
-      <div className="flex overflow-x-auto overflow-hidden no-scrollbar">
+      <div className="flex overflow-x-auto overflow-hidden no-scrollbar md:gap-3">
         {data?.results.map((item:Results) => {
           return (
           <div key={item.id}
             onClick={()=>handleClick(item.id)}
-            className="flex text-sm justify-between flex-col relative flex-shrink-0 basis-32 ml-0 m-2 rounded-lg overflow-auto shadow-lg shadow-gray-950">
+            className="flex text-sm justify-between flex-col relative flex-shrink-0 basis-32 ml-0 m-2 rounded-lg overflow-auto shadow-lg shadow-gray-950 md:basis-44 cursor-pointer hover:scale-105 hover:opacity-50 ">
             {item.poster_path ?
-              <LazyLoadImage style={{objectFit:"cover", height:'100%'}}
+              <LazyLoadImage style={{objectFit:"cover", height:'100%', width: '100%'}}
                 alt={item.name}
-                height={'12rem'}
                 effect= "blur"
                 src={`https://image.tmdb.org/t/p/w154${item.poster_path}`}
               />  : 

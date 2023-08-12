@@ -38,7 +38,7 @@ const SearchResult:React.FC = () => {
           {data?.results.length>0 ? 
             <>
               <div className="text-lg font-semibold">{`Search ${data.total_results>1 ? 'results' : 'result'} of '${query}'`}</div>
-                <div className="grid grid-cols-2 gap-4 mt-4 mb-8">
+                <div className="grid grid-cols-2 gap-4 mt-4 mb-8 sm:grid-cols-3 md:grid-cols-4">
                   {data?.results.map((item:Results) => {
                     return (
                     <div key={item.id} 
